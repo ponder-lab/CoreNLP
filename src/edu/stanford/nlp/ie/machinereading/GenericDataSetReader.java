@@ -226,7 +226,7 @@ public class GenericDataSetReader  {
       CoreLabel label = (CoreLabel) sh.label();
       headPos = label.get(CoreAnnotations.BeginIndexAnnotation.class);
     } else {
-      logger.fine("WARNING: failed to find syntactic head for entity: " + ent + " in tree: " + tree);
+      logger.info("WARNING: failed to find syntactic head for entity: " + ent + " in tree: " + tree);
       logger.fine("Fallback strategy: will set head to last token in mention: " + tokens.get(headPos));
     }
     ent.setHeadTokenPosition(headPos);
