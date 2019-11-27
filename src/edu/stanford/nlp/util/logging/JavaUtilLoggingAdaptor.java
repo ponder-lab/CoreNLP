@@ -102,16 +102,16 @@ public class JavaUtilLoggingAdaptor {
       Redwood.startTrack("Adaptor test controlled by redwood");
 
       Logger topLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-      topLogger.warning("I'm warning you!");
-      topLogger.severe("Now I'm using my severe voice.");
-      topLogger.info("FYI");
+      topLogger.fine("I'm warning you!");
+      topLogger.fine("Now I'm using my severe voice.");
+      topLogger.fine("FYI");
 
       Redwood.log(Redwood.DBG, "adapting");
       JavaUtilLoggingAdaptor.adapt();
-      topLogger.warning("I'm warning you in Redwood!");
+      topLogger.fine("I'm warning you in Redwood!");
       JavaUtilLoggingAdaptor.adapt(); // should be safe to call this twice
-      topLogger.severe("Now I'm using my severe voice in Redwood!");
-      topLogger.info("FYI: Redwood rocks");
+      topLogger.fine("Now I'm using my severe voice in Redwood!");
+      topLogger.fine("FYI: Redwood rocks");
 
       // make sure original java.util.logging levels are respected
       topLogger.setLevel(Level.OFF);
@@ -125,19 +125,19 @@ public class JavaUtilLoggingAdaptor {
       // topLogger.addHandler(new ConsoleHandler());
       Logger logger = Logger.getLogger(JavaUtilLoggingAdaptor.class.getName());
       topLogger.info("Starting test");
-      logger.log(Level.INFO, "Hello from the class logger");
+      logger.log(Level.FINE, "Hello from the class logger");
 
       Redwood.log("Hello from Redwood!");
       Redwood.rootHandler().addChild(
         RedirectOutputHandler.fromJavaUtilLogging(topLogger));
       Redwood.log("Hello from Redwood -> Java!");
       Redwood.log("Hello from Redwood -> Java again!");
-      logger.log(Level.INFO, "Hello again from the class logger");
+      logger.log(Level.FINE, "Hello again from the class logger");
       Redwood.startTrack("a track");
       Redwood.log("Inside a track");
-      logger.log(Level.INFO, "Hello a third time from the class logger");
+      logger.log(Level.FINE, "Hello a third time from the class logger");
       Redwood.endTrack("a track");
-      logger.log(Level.INFO, "Hello a fourth time from the class logger");
+      logger.log(Level.FINE, "Hello a fourth time from the class logger");
     }
   }
 

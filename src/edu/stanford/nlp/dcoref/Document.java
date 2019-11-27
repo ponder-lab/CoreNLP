@@ -352,7 +352,7 @@ public class Document implements Serializable {
             }
             existingMentions.append(eg.mentionID);
           }
-          SieveCoreferenceSystem.logger.warning("WARNING: gold mentions with the same offsets: " + ip
+          SieveCoreferenceSystem.logger.fine("WARNING: gold mentions with the same offsets: " + ip
                   + " mentions=" + g.mentionID + "," + existingMentions + ", " + g.spanToString());
         }
         //assert(!goldMentionPositions.containsKey(ip));
@@ -727,7 +727,7 @@ public class Document implements Serializable {
             }
           }
         } else {
-          SieveCoreferenceSystem.logger.warning("Cannot find node in dependency for word " + word);
+          SieveCoreferenceSystem.logger.info("Cannot find node in dependency for word " + word);
         }
       }
     }

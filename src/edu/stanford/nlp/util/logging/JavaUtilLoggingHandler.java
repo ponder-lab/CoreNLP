@@ -24,17 +24,17 @@ public class JavaUtilLoggingHandler extends OutputHandler {
     // Route the signal
     switch (pair.second()) {
       case ERROR:
-        impl.log(Level.SEVERE, line);
+        impl.log(Level.FINE, line);
         break;
       case WARN:
-        impl.log(Level.WARNING, line);
+        impl.log(Level.FINE, line);
         break;
       case DEBUG:
         impl.log(Level.FINE, line);
         break;
       case STDOUT:
       case STDERR:
-        impl.info(line);
+        impl.fine(line);
         break;
       case FORCE:
         throw new IllegalStateException("Should not reach this switch case");
