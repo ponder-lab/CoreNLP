@@ -121,7 +121,7 @@ public class CoNLL2011DocumentReader  {
         docIterator = new DocumentIterator(curFile.getAbsolutePath(), options);
       }
       while ( ! docIterator.hasNext()) {
-        logger.info("Processed " + docIterator.docCnt + " documents in " + curFile.getAbsolutePath());
+        logger.finest("Processed " + docIterator.docCnt + " documents in " + curFile.getAbsolutePath());
         docIterator.close();
         curFileIndex++;
         if (curFileIndex >= fileList.size()) {
@@ -131,7 +131,7 @@ public class CoNLL2011DocumentReader  {
         docIterator = new DocumentIterator(curFile.getAbsolutePath(), options);
       }
       Document next = docIterator.next();
-      SieveCoreferenceSystem.logger.fine("Reading document: " + next.getDocumentID());
+      SieveCoreferenceSystem.logger.finest("Reading document: " + next.getDocumentID());
       return next;
     } catch (IOException ex) {
       throw new RuntimeIOException(ex);
