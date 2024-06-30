@@ -2,8 +2,7 @@ language: java
 sudo: required
 
 jdk:
-- openjdk8
-## BENJAMIN: THIS NEEDS TO CHANGE
+- openjdk21
 # - oraclejdk8
 # `openjdk8` not available
 
