@@ -13,7 +13,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
-import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -43,7 +43,7 @@ public class MulticoreWrapper<I,O> {
   private final boolean orderResults;
 
   private final Map<Integer,O> outputQueue;
-  final ThreadPoolExecutor threadPool;
+  final ExecutorService threadPool;
 //  private final ExecutorCompletionService<Integer> queue;
   final BlockingQueue<Integer> idleProcessors;
   private final List<ThreadsafeProcessor<I,O>> processorList;
@@ -81,11 +81,6 @@ public class MulticoreWrapper<I,O> {
       idleProcessors.add(processorId);
     };
 
-    // Sanity check: Fixed thread pool so prevent timeouts.
-    // Default should be false
-    threadPool.allowCoreThreadTimeOut(false);
-    threadPool.prestartAllCoreThreads();
-
     // Setup the processors, one per thread
     List<ThreadsafeProcessor<I,O>> procList = new ArrayList<>(nThreads);
     procList.add(processor);
@@ -97,8 +92,8 @@ public class MulticoreWrapper<I,O> {
     processorList = Collections.unmodifiableList(procList);
   }
 
-  protected ThreadPoolExecutor buildThreadPool(int nThreads) {
-    return (ThreadPoolExecutor) Executors.newFixedThreadPool(nThreads);
+  protected ExecutorService buildThreadPool(int nThreads) {
+    return Executors.newVirtualThreadPerTaskExecutor();
   }
 
   public int nThreads() {
@@ -110,14 +105,7 @@ public class MulticoreWrapper<I,O> {
    */
   @Override
   public String toString() {
-    return String.format("active: %d/%d  submitted: %d  completed: %d  input_q: %d  output_q: %d  idle_q: %d",
-        threadPool.getActiveCount(),
-        threadPool.getPoolSize(),
-        threadPool.getTaskCount(),
-        threadPool.getCompletedTaskCount(),
-        threadPool.getQueue().size(),
-        outputQueue.size(),
-        idleProcessors.size());
+    return "";
   }
   
   /**

@@ -232,7 +232,7 @@ public class ScorePhrases<E extends Pattern>  {
     else
       num = sents.size() / (numThreads - 1);
 
-    ExecutorService executor = Executors.newFixedThreadPool(constVars.numThreads);
+    ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
     List<Future<Triple<TwoDimensionalCounter<CandidatePhrase, E>, CollectionValuedMap<E, Triple<String, Integer, Integer>>, Set<CandidatePhrase>>>> list = new ArrayList<>();
 
 

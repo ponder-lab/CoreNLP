@@ -326,7 +326,7 @@ public class LogConditionalObjectiveFunction<L, F> extends AbstractStochasticCac
       CountDownLatch latch = new CountDownLatch(threads);
       for (int i = 0; i < threads; i++) {
         runnables[i] = new CLBatchDerivativeCalculation(threads, i, null, x, derivative.length, latch);
-        new Thread(runnables[i]).start();
+        Thread.ofVirtual().start(runnables[i]);
       }
       try {
         latch.await();
@@ -684,7 +684,7 @@ public class LogConditionalObjectiveFunction<L, F> extends AbstractStochasticCac
       CountDownLatch latch = new CountDownLatch(threads);
       for (int i = 0; i < threads; i++) {
         runnables[i] = new CLBatchDerivativeCalculation(threads, i, batch, x, x.length, latch);
-        new Thread(runnables[i]).start();
+        Thread.ofVirtual().start(runnables[i]);
       }
       try {
         latch.await();
@@ -1005,7 +1005,7 @@ public class LogConditionalObjectiveFunction<L, F> extends AbstractStochasticCac
       CountDownLatch latch = new CountDownLatch(threads);
       for (int i = 0; i < threads; i++) {
         runnables[i] = new RVFDerivativeCalculation(threads, i, x, derivative.length, latch);
-        new Thread(runnables[i]).start();
+        Thread.ofVirtual().start(runnables[i]);
       }
       try {
         latch.await();

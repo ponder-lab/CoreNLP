@@ -128,7 +128,7 @@ public class SynchronizedInterner<T> {
   public static void main(final String[] args) throws InterruptedException {
     final Thread[] threads = new Thread[100];
     for (int i = 0; i < threads.length; i++) {
-      threads[i] = new Thread(() -> {
+      threads[i] = Thread.ofVirtual().unstarted(() -> {
         for (String str : args) {
           String interned = SynchronizedInterner.globalIntern(str);
           Thread.yield();

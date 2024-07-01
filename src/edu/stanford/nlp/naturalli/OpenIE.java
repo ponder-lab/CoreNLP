@@ -691,7 +691,7 @@ public class OpenIE implements Annotator  {
     }});
     ArgumentParser.fillOptions(new Class[]{OpenIE.class, ArgumentParser.class}, props);
     AtomicInteger exceptionCount = new AtomicInteger(0);
-    ExecutorService exec = Executors.newFixedThreadPool(ArgumentParser.threads);
+    ExecutorService exec = Executors.newVirtualThreadPerTaskExecutor();
 
     // Parse the files to process
     String[] filesToProcess;

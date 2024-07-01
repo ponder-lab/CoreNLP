@@ -51,7 +51,7 @@ public class CreatePatterns<E> {
 
     int numThreads = Math.min(constVars.numThreads, keyset.size());
     int numItemsPerThread = (numThreads == 1) ? keyset.size() : keyset.size() / numThreads;
-    ExecutorService executor = Executors.newFixedThreadPool(numThreads);
+    ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
 
     Redwood.log(ConstantsAndVariables.extremedebug, "Computing all patterns. keyset size is " + keyset.size() + ". Assigning " + numItemsPerThread + " values to each of " + numThreads + " thread(s)");
     List<Future<Boolean>> list = new ArrayList<>();

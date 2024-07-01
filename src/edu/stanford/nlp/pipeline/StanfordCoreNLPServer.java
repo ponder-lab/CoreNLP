@@ -206,8 +206,8 @@ public class StanfordCoreNLPServer implements Runnable {
             defaultPropertyKeys.stream().map(
                 k -> String.format("\t\t\t%s = %s", k, this.defaultProps.get(k))).collect(Collectors.joining("\n")));
 
-    this.serverExecutor = Executors.newFixedThreadPool(ArgumentParser.threads);
-    this.corenlpExecutor = Executors.newFixedThreadPool(ArgumentParser.threads);
+    this.serverExecutor = Executors.newVirtualThreadPerTaskExecutor();
+    this.corenlpExecutor = Executors.newVirtualThreadPerTaskExecutor();
 
     // Generate and write a shutdown key, get optional server_id from passed in properties
     // this way if multiple servers running can shut them all down with different ids
