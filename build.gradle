@@ -2,13 +2,20 @@
 // Stanford CoreNLP build specification for 
 // Gradle.
 //
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'application'
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'application'
+}
+
+// Define repositories
+repositories {
+    mavenCentral()
+}
 
 // Gradle java plugin
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 21
+targetCompatibility = 21
 compileJava.options.encoding = 'UTF-8'
 
 version = '4.5.8'
@@ -48,8 +55,8 @@ task listDeps {
 }
 
 dependencies {
-  compile fileTree(dir: 'lib', include: '*.jar')
-  testCompile fileTree(dir: 'liblocal', include: '*.jar')
+  implementation fileTree(dir: 'lib', include: '*.jar')
+  testImplementation fileTree(dir: 'liblocal', include: '*.jar')
 }
 
 // Eclipse plugin setup
@@ -64,6 +71,6 @@ eclipse {
   }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.2'
+wrapper {
+    gradleVersion = '8.6'
 }
