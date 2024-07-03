@@ -455,7 +455,7 @@ public class ScorePhrasesLearnFeatWt<E extends Pattern> extends PhraseScorer<E> 
 
     AtomicDouble allMaxSim = new AtomicDouble(Double.MIN_VALUE);
 
-    ExecutorService executor = Executors.newFixedThreadPool(constVars.numThreads);
+    ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
     List<Future<Pair<Counter<CandidatePhrase>, Counter<CandidatePhrase>>>> list = new ArrayList<>();
 
     //multi-threaded choose positive, negative and unknown
@@ -905,7 +905,7 @@ public class ScorePhrasesLearnFeatWt<E extends Pattern> extends PhraseScorer<E> 
         Data.computeRawFreqIfNull(sents, PatternFactory.numWordsCompoundMax);
 
       List<List<String>> threadedSentIds = GetPatternsFromDataMultiClass.getThreadBatches(new ArrayList<>(sents.keySet()), constVars.numThreads);
-      ExecutorService executor = Executors.newFixedThreadPool(constVars.numThreads);
+      ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
       List<Future<Quintuple<Set<CandidatePhrase>, Set<CandidatePhrase>, Set<CandidatePhrase>, Counter<CandidatePhrase>,  Counter<CandidatePhrase>>>> list = new ArrayList<>();
 
       //multi-threaded choose positive, negative and unknown

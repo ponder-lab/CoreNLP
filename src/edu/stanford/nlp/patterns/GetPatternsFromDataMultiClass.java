@@ -956,7 +956,7 @@ public class GetPatternsFromDataMultiClass<E extends Pattern> implements Seriali
 
     Redwood.log(Redwood.DBG,"ignoreCaseSeedMatch is " + constVars.ignoreCaseSeedMatch);
     List<List<String>> threadedSentIds = getThreadBatches(new ArrayList<>(sents.keySet()), constVars.numThreads);
-    ExecutorService executor = Executors.newFixedThreadPool(constVars.numThreads);
+    ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
     List<Future<Pair<Map<String, DataInstance>, Counter<CandidatePhrase>>>> list = new ArrayList<>();
     Counter<CandidatePhrase> matchedPhrasesCounter = new ClassicCounter<>();
     for (List<String> keys: threadedSentIds) {
@@ -1636,7 +1636,7 @@ public class GetPatternsFromDataMultiClass<E extends Pattern> implements Seriali
     List<List<String>> sampledSentIds = splitIntoNumThreadsWithSampling(CollectionUtils.toList(sents.keySet()), sampleSize, constVars.numThreads);
     Redwood.log(Redwood.DBG,"sampled " + sampleSize + " sentences (" + constVars.sampleSentencesForSufficientStats*100 + "%)");
 
-    ExecutorService executor = Executors.newFixedThreadPool(constVars.numThreads);
+    ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
 
     List<Future<Triple<List<Pair<E, CandidatePhrase>>, List<Pair<E, CandidatePhrase>>, List<Pair<E, CandidatePhrase>>>>> list = new ArrayList<>();
     for (List<String> sampledSents : sampledSentIds) {

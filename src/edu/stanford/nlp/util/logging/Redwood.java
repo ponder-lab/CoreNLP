@@ -1136,7 +1136,7 @@ public class Redwood  {
         return;
       }
       //(create executor)
-      ExecutorService exec = Executors.newFixedThreadPool(numThreads);
+      ExecutorService exec = Executors.newVirtualThreadPerTaskExecutor();
       //(add threads)
       for(Runnable toRun : thread(title,runnables)){
         exec.submit(toRun);
@@ -1462,7 +1462,7 @@ public class Redwood  {
     Redwood.getHandler(ConsoleHandler.class).minLineCountForTrackNameReminder = 50;
 
     //--Multithreading
-    ExecutorService exec = Executors.newFixedThreadPool(10);
+    ExecutorService exec = Executors.newVirtualThreadPerTaskExecutor();
     startThreads("name");
     for(int i=0; i<50; i++){
       final int theI = i;

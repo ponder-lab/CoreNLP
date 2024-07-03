@@ -498,7 +498,7 @@ public class SpanishXMLTreeReader implements TreeReader  {
 
     final SpanishXMLTreeReaderFactory trf = new SpanishXMLTreeReaderFactory(true, true, ner, detailedAnnotations, expandElisions, expandConmigo);
     ExecutorService pool =
-      Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+      Executors.newVirtualThreadPerTaskExecutor();
 
     for (final File file : fileList) {
       pool.execute(()-> { try {

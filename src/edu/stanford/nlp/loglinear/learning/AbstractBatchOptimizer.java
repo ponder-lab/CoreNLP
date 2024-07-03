@@ -307,7 +307,7 @@ public abstract class AbstractBatchOptimizer  {
           Thread[] threads = new Thread[numThreads];
           for (int i = 0; i < workers.length; i++) {
             workers[i] = new GradientWorker(this, i, numThreads, queues[i], fn, weights);
-            threads[i] = new Thread(workers[i]);
+            threads[i] = Thread.ofVirtual().unstarted(workers[i]);
             workers[i].jvmThreadId = threads[i].getId();
             threads[i].start();
           }

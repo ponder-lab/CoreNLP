@@ -33,7 +33,7 @@ public class ChineseStringUtilsTest extends TestCase {
     SeqClassifierFlags flags = createTestFlags();
     List<CoreLabel> labels = createTestTokens();
     List<Future<Boolean>> tasks = new ArrayList<>(THREADS);
-    ExecutorService executor = Executors.newFixedThreadPool(THREADS);
+    ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
 
     for (int v = 0; v < THREADS; v++) {
       Future<Boolean> f = executor.submit(() -> {
